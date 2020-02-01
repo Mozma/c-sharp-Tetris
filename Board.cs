@@ -11,6 +11,7 @@ namespace c_sharp_Tetris
         public int Height { get; set; }
         private int PixelSize { get; set; }
         public Color BoardColor { get; set; }
+        
         public int[,] BoardStatus { get; set; }
 
         public Board(int width, int height, int pixelSize)
@@ -88,7 +89,7 @@ namespace c_sharp_Tetris
         private void drawStatus(Bitmap bitField, int status, int row, int col)
         {
             // col - x. row - y. 
-            // 0 - empty, 1 - border, 2 - unfixed block, 3 - fixated block;  
+            // 0 - empty, 1 - border, 2 - unfixed block, 3 - fixed block;  
 
             switch (status)
             {

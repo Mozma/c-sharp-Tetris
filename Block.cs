@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace c_sharp_Tetris
 {
@@ -9,19 +10,19 @@ namespace c_sharp_Tetris
         public int startX { get; set; }
         public int startY { get; set; }
 
-
+      
+        
         Shape shape = new Shape();
         public Block()
         {
             blockShape = shape.BlockShape;
+            
         }
-
-
 
         public void spawn(Board board)
         {
             blockShape = shape.newShape();
-
+           
             startX = (board.Width / 2) - 2;
             startY = 0;
             for (var row = startY; row < startY + 4; row++)
@@ -151,27 +152,35 @@ namespace c_sharp_Tetris
         /// <param name="board"></param>
         internal void updateBlock(Board board)
         {
-            //delete all red blocks
-            for (var col = 1; col < board.Width; col++)
+            try
             {
-                for (var row = 1; row < board.Height; row++)
+                //delete all red blocks
+                for (var col = 1; col < board.Width; col++)
                 {
-                    if ((board.BoardStatus[row, col] == 2))
+                    for (var row = 1; row < board.Height; row++)
                     {
-                        board.BoardStatus[row, col] = 0;
+                        if ((board.BoardStatus[row, col] == 2))
+                        {
+                            board.BoardStatus[row, col] = 0;
+                        }
+                    }
+                }
+
+                //set new red blocks
+                for (var col = startX; col < startX + 4; col++)
+                {
+                    for (var row = startY; row < startY + 4; row++)
+                    {
+
+                        if (blockShape[row - startY, col - startX] == 1)
+                        {
+                            board.BoardStatus[row + 1, col] = 2;
+                        }
                     }
                 }
             }
-            //set new red blocks
-            for (var row = startY; row < startY + 4; row++)
+            catch (IndexOutOfRangeException)
             {
-                for (var col = startX; col < startX + 4; col++)
-                {
-                    if (blockShape[row - startY, col - startX] == 1)
-                    {
-                        board.BoardStatus[row + 1, col] = 2;
-                    }
-                }
             }
         }
 
@@ -210,15 +219,21 @@ namespace c_sharp_Tetris
             }
             return true;
         }
-
         public bool checkRotation(Board board)
         {
             for (int col = startX; col < startX + 4; col++)
                 for (int row = startY; row < startY + 4; row++)
-                    //if (board.BoardStatus[startY + 4 - 1 - row, col] == 3 || board.BoardStatus[startY + 4 - 1 - row, col] == 1)
-                    if(board.BoardStatus[startY,startX] == 3 || board.BoardStatus[startY, startX] == 1)
+                {
+                    try
+                    {
+                        if (board.BoardStatus[row, col] == 1 || board.BoardStatus[row, col] == 3)
+                            return false;                                                
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
                         return false;
-
+                    }
+                }
             return true;
         }
 
