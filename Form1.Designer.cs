@@ -46,7 +46,7 @@
             // TickTack
             // 
             this.TickTack.Enabled = true;
-            this.TickTack.Interval = 1000;
+            this.TickTack.Interval = 200;
             this.TickTack.Tick += new System.EventHandler(this.TickTack_Tick);
             // 
             // Form1

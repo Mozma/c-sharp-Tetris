@@ -86,6 +86,41 @@ namespace c_sharp_Tetris
 
         }
 
+        public void checkRows()
+        {
+            bool flag;
+            
+            for (var row = 1; row < Height - 1; row++)
+            {
+                flag = true;
+                for (var col = 1; col < Width - 1; col++)
+                {
+                    if (BoardStatus[row, col] != 3)
+                        flag = false;
+                }
+                if (flag)              
+                    moveFieldDown(row);
+            }
+
+        }
+
+        private void moveFieldDown(int endRow)
+        {
+            for (var row = endRow; row > 1; row--)
+            {                
+                for (var col = 1; col < Width - 1; col++)
+                {
+                    if (BoardStatus[row, col] == 3)
+                    {
+                        if(BoardStatus[row + 1, col] != 1 && row != endRow)  
+                            BoardStatus[row + 1, col] = BoardStatus[row, col];
+                       
+                        BoardStatus[row, col] = 0;                
+                    }
+                }
+            }
+        }
+
         private void drawStatus(Bitmap bitField, int status, int row, int col)
         {
             // col - x. row - y. 

@@ -248,7 +248,9 @@ namespace c_sharp_Tetris
                         board.BoardStatus[row, col] = 3;
                     }
                 }
-            }            
+            }
+
+            board.checkRows();
         }
 
     }

@@ -46,8 +46,8 @@ namespace c_sharp_Tetris
 
         private void TickTack_Tick(object sender, EventArgs e)
         {
-             block.Move(board);
-            //block.rotateAntiClockwise(board);          
+            block.Move(board);
+            //board.checkRows();          
             updateField();
         }
 
