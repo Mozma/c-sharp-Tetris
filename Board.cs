@@ -26,6 +26,8 @@ namespace c_sharp_Tetris
             
         }
 
+        
+
         Bitmap bitField;
         Graphics gr;
         Pen pen;
@@ -40,9 +42,21 @@ namespace c_sharp_Tetris
             pen = new Pen(BoardColor);
             br = new SolidBrush(BoardColor);
             br1 = new SolidBrush(Color.Black);
-            br2 = new SolidBrush(Color.Red);
-            br3 = new SolidBrush(Color.Green);
+            br2 = new SolidBrush(Color.FromArgb(255,51,51));    // unfixed block
+            br3 = new SolidBrush(Color.FromArgb(0,204,51));   // fixed block
             gr.Clear(Color.Black);
+        }
+
+        internal void clear(Board board)
+        {
+            for (var row = 1; row < Height-1; row++)
+            {
+                for (var col = 1; col < Width-1; col++)
+                {
+                    BoardStatus[row, col] = 0;
+                }
+            }
+
         }
 
         /// <summary>
@@ -145,5 +159,24 @@ namespace c_sharp_Tetris
             }
            
         }
+
+        public bool checkSpawnArea()
+        {
+
+            int startX = (Width / 2) - 2;
+            int startY = 0;
+            for (var row = startY; row < startY + 4; row++)
+            {
+                for (var col = startX; col < startX + 4; col++)
+                {
+                    if (BoardStatus[row, col] == 3)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
+    
 }

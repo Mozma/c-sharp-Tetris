@@ -4,13 +4,13 @@ using System.Windows.Forms;
 
 namespace c_sharp_Tetris
 {
-    public partial class Form1 : Form
+    public partial class TetrisMainForm : Form
     {
         public const int width = 14, height = 28, k = 20;
 
         Board board;
         Block block;
-        public Form1()
+        public TetrisMainForm()
         {
             InitializeComponent();
             
@@ -19,8 +19,9 @@ namespace c_sharp_Tetris
 
 
             block = new Block();
-
-            block.spawn(board);
+            if (board.checkSpawnArea())
+                block.spawn(board);
+       
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -38,7 +39,7 @@ namespace c_sharp_Tetris
                     break;
                 case Keys.W:
                     block.rotateAntiClockwise(board);
-                   // block.updateBlock(board);
+              
                     break;
             }
             updateField();
@@ -46,9 +47,15 @@ namespace c_sharp_Tetris
 
         private void TickTack_Tick(object sender, EventArgs e)
         {
-            block.Move(board);
-            //board.checkRows();          
-            updateField();
+            try
+            {
+                block.Move(board);
+                updateField();
+            }
+            catch(Exception)
+            {
+                this.Close();
+            }
         }
 
         public void updateField()

@@ -1,6 +1,6 @@
 ﻿namespace c_sharp_Tetris
 {
-    partial class Form1
+    partial class TetrisMainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -49,15 +49,15 @@
             this.TickTack.Interval = 200;
             this.TickTack.Tick += new System.EventHandler(this.TickTack_Tick);
             // 
-            // Form1
+            // TetrisMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(279, 560);
             this.Controls.Add(this.pictureBox1);
             this.KeyPreview = true;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "TetrisMainForm";
+            this.Text = "Tetris";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

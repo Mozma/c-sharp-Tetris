@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace c_sharp_Tetris
 {
@@ -21,20 +22,42 @@ namespace c_sharp_Tetris
 
         public void spawn(Board board)
         {
-            blockShape = shape.newShape();
-           
-            startX = (board.Width / 2) - 2;
-            startY = 0;
-            for (var row = startY; row < startY + 4; row++)
+            if (board.checkSpawnArea())
             {
-                for (var col = startX; col < startX + 4; col++)
+                blockShape = shape.newShape();
+
+                startX = (board.Width / 2) - 2;
+                startY = 0;
+                for (var row = startY; row < startY + 4; row++)
                 {
-                    if (blockShape[row - startY,col - startX] == 1)
+                    for (var col = startX; col < startX + 4; col++)
                     {
-                        board.BoardStatus[row + 1, col] = 2;
+                        if (blockShape[row - startY, col - startX] == 1)
+                        {
+                            board.BoardStatus[row + 1, col] = 2;
+                        }
                     }
                 }
             }
+            else
+            {
+                if (MessageBox.Show("Начать новую игру?", "Game Over!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    startNewGame(board);
+                else
+                    endGame();
+            }
+
+        }
+
+        private void endGame()
+        {
+            throw new Exception();
+        }
+
+        private void startNewGame(Board board)
+        {
+            board.clear(board);
+            spawn(board);
         }
 
         #region movement
