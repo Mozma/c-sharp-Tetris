@@ -46,21 +46,12 @@ namespace c_sharp_Tetris
             br3 = new SolidBrush(Color.FromArgb(0,204,51));   // fixed block
             gr.Clear(Color.Black);
         }
-
-        internal void clear(Board board)
-        {
-            for (var row = 1; row < Height-1; row++)
-            {
-                for (var col = 1; col < Width-1; col++)
-                {
-                    BoardStatus[row, col] = 0;
-                }
-            }
-
-        }
+        
+        
+        
 
         /// <summary>
-        /// Создаёт массив вида [] где по краям 1, а в центре 0
+        /// Creates an array of zeros with 1 of the edges.
         /// </summary>
         private void createField()
         {
@@ -84,9 +75,9 @@ namespace c_sharp_Tetris
 
 
         /// <summary>
-        /// Рисует квадраты по шаблону
+        /// Draw board pixels.
         /// </summary>
-        /// <param name="board"></param>
+      
         public void fillField(PictureBox board)
         {
             for (var row = 0; row < Height; row++)
@@ -99,42 +90,21 @@ namespace c_sharp_Tetris
             board.Image = bitField;
 
         }
-
-        public void checkRows()
+        
+        /// <summary>
+        /// Clear game field.
+        /// </summary>
+        internal void clear()
         {
-            bool flag;
-            
             for (var row = 1; row < Height - 1; row++)
             {
-                flag = true;
                 for (var col = 1; col < Width - 1; col++)
                 {
-                    if (BoardStatus[row, col] != 3)
-                        flag = false;
+                    BoardStatus[row, col] = 0;
                 }
-                if (flag)              
-                    moveFieldDown(row);
             }
 
         }
-
-        private void moveFieldDown(int endRow)
-        {
-            for (var row = endRow; row > 1; row--)
-            {                
-                for (var col = 1; col < Width - 1; col++)
-                {
-                    if (BoardStatus[row, col] == 3)
-                    {
-                        if(BoardStatus[row + 1, col] != 1 && row != endRow)  
-                            BoardStatus[row + 1, col] = BoardStatus[row, col];
-                       
-                        BoardStatus[row, col] = 0;                
-                    }
-                }
-            }
-        }
-
         private void drawStatus(Bitmap bitField, int status, int row, int col)
         {
             // col - x. row - y. 
@@ -157,7 +127,41 @@ namespace c_sharp_Tetris
                     gr.FillRectangle(br3, col * PixelSize, row * PixelSize, PixelSize, PixelSize);
                     break;
             }
-           
+
+        }
+        private void moveFieldDown(int endRow)
+        {
+            for (var row = endRow; row > 1; row--)
+            {                
+                for (var col = 1; col < Width - 1; col++)
+                {
+                    if (BoardStatus[row, col] == 3)
+                    {
+                        if(BoardStatus[row + 1, col] != 1 && row != endRow)  
+                            BoardStatus[row + 1, col] = BoardStatus[row, col];
+                       
+                        BoardStatus[row, col] = 0;                
+                    }
+                }
+            }
+        }
+              
+        public void checkRows()
+        {
+            bool flag;
+
+            for (var row = 1; row < Height - 1; row++)
+            {
+                flag = true;
+                for (var col = 1; col < Width - 1; col++)
+                {
+                    if (BoardStatus[row, col] != 3)
+                        flag = false;
+                }
+                if (flag)
+                    moveFieldDown(row);
+            }
+
         }
 
         public bool checkSpawnArea()

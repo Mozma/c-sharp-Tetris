@@ -7,7 +7,7 @@ namespace c_sharp_Tetris
     {        
         public int[,] BlockShape { get; set; }
 
-        static Random rnd = new Random();
+        static Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
         
         public Shape()
         {
@@ -67,14 +67,6 @@ namespace c_sharp_Tetris
                                     { 0, 1, 1, 0},
                                     { 0, 0, 0, 0}};
                     break;
-                case 8:
-                    BlockShape = new int[,]
-                                   {{ 1, 0, 0, 1},
-                                    { 0, 1, 0, 0},
-                                    { 0, 0, 0, 0},
-                                    { 1, 0, 0, 1}};
-                    break;
-
             }
             return BlockShape;
         }

@@ -10,17 +10,17 @@ namespace c_sharp_Tetris
 
         public int startX { get; set; }
         public int startY { get; set; }
+        public Board board { get; set; } 
 
-      
-        
+     
         Shape shape = new Shape();
-        public Block()
+        public Block(Board board)
         {
             blockShape = shape.BlockShape;
-            
+            this.board = board;
         }
 
-        public void spawn(Board board)
+        public void spawn()
         {
             if (board.checkSpawnArea())
             {
@@ -41,29 +41,33 @@ namespace c_sharp_Tetris
             }
             else
             {
-                if (MessageBox.Show("Начать новую игру?", "Game Over!", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    startNewGame(board);
+               // End game block. 
+                if (MessageBox.Show("Start a New Game?", "Game Over!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    startNewGame();
                 else
                     endGame();
             }
 
         }
+        /// <summary>
+        /// Throw exception upper.
+        /// </summary>
 
         private void endGame()
         {
             throw new Exception();
         }
 
-        private void startNewGame(Board board)
+        private void startNewGame()
         {
-            board.clear(board);
-            spawn(board);
+            board.clear();
+            spawn();
         }
 
         #region movement
-        internal void Move(Board board)
+        internal void Move()
         {
-            if (checkMove(board, "down"))
+            if (checkMove("down"))
             {
                 
                 for (var row = board.Height - 1; row >= 0; row--)
@@ -81,14 +85,14 @@ namespace c_sharp_Tetris
             }
             else
             {
-                fixate(board);
-                spawn(board);
+                fixate();
+                spawn();
             }
         }
 
-        internal void MoveLeft(Board board)
+        internal void MoveLeft()
         {
-            if (checkMove(board, "left"))
+            if (checkMove("left"))
             {
                 for (var col = 1; col < board.Width; col++)
                 {
@@ -106,9 +110,9 @@ namespace c_sharp_Tetris
             }
         }
 
-        internal void MoveRight(Board board)
+        internal void MoveRight()
         {
-            if (checkMove(board, "right"))
+            if (checkMove("right"))
             { 
                 for (var col = board.Width - 1; col >= 0; col--)
                 {
@@ -125,9 +129,9 @@ namespace c_sharp_Tetris
             }
         }
         
-        internal void MoveDown(Board board)
+        internal void MoveDown()
         {
-            if (checkMove(board, "down"))
+            if (checkMove("down"))
             {
                 for (var row = board.Height - 1; row >= 0; row--)
                 {
@@ -152,9 +156,9 @@ namespace c_sharp_Tetris
         //    rotateAntiClockwise();
         //}
 
-        public void rotateAntiClockwise(Board board)
+        public void rotateAntiClockwise()
         {
-            if (checkRotation(board))
+            if (checkRotation())
             {
                 int[,] temp = new int[blockShape.GetLength(0), blockShape.GetLength(1)];
 
@@ -164,7 +168,7 @@ namespace c_sharp_Tetris
 
                 blockShape = temp;
 
-                updateBlock(board);
+                updateBlock();
             }
         }
         #endregion
@@ -173,7 +177,7 @@ namespace c_sharp_Tetris
         /// Обновляет состояние блока размером 4х4.
         /// </summary>
         /// <param name="board"></param>
-        internal void updateBlock(Board board)
+        internal void updateBlock()
         {
             try
             {
@@ -211,7 +215,7 @@ namespace c_sharp_Tetris
         /// Проверяет выбранное направление на возможность хода.
         /// </summary>
 
-        public bool checkMove(Board board, string direction)
+        public bool checkMove(string direction)
         {            
             for (var row = 1; row < board.Height-1; row++)
             {                
@@ -242,7 +246,7 @@ namespace c_sharp_Tetris
             }
             return true;
         }
-        public bool checkRotation(Board board)
+        public bool checkRotation()
         {
             for (int col = startX; col < startX + 4; col++)
                 for (int row = startY; row < startY + 4; row++)
@@ -260,7 +264,7 @@ namespace c_sharp_Tetris
             return true;
         }
 
-        public void fixate(Board board)
+        public void fixate()
         {
             for (var col = 1; col < board.Width; col++)
             {
@@ -272,7 +276,7 @@ namespace c_sharp_Tetris
                     }
                 }
             }
-
+           
             board.checkRows();
         }
 

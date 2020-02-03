@@ -29,19 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.FieldPictureBox = new System.Windows.Forms.PictureBox();
             this.TickTack = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldPictureBox)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // FieldPictureBox
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(279, 560);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.FieldPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.FieldPictureBox.MaximumSize = new System.Drawing.Size(285, 560);
+            this.FieldPictureBox.MinimumSize = new System.Drawing.Size(285, 560);
+            this.FieldPictureBox.Name = "FieldPictureBox";
+            this.FieldPictureBox.Size = new System.Drawing.Size(285, 560);
+            this.FieldPictureBox.TabIndex = 0;
+            this.FieldPictureBox.TabStop = false;
             // 
             // TickTack
             // 
@@ -49,25 +52,38 @@
             this.TickTack.Interval = 200;
             this.TickTack.Tick += new System.EventHandler(this.TickTack_Tick);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Aquamarine;
+            this.panel1.Controls.Add(this.FieldPictureBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(279, 560);
+            this.panel1.TabIndex = 1;
+            // 
             // TetrisMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(279, 560);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.panel1);
             this.KeyPreview = true;
             this.Name = "TetrisMainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tetris";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldPictureBox)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox FieldPictureBox;
         private System.Windows.Forms.Timer TickTack;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

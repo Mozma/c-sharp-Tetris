@@ -14,14 +14,12 @@ namespace c_sharp_Tetris
         {
             InitializeComponent();
             
-            board = new Board(width, height, k);
-            board.fillField(pictureBox1);
+            board = new Board(width, height, k);                   
+            block = new Block(board);
 
-
-            block = new Block();
+            board.fillField(FieldPictureBox);
             if (board.checkSpawnArea())
-                block.spawn(board);
-       
+                block.spawn();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -29,16 +27,16 @@ namespace c_sharp_Tetris
             switch (e.KeyCode)
             {
                 case Keys.A:
-                    block.MoveLeft(board);
+                    block.MoveLeft();
                     break;
                 case Keys.D:
-                    block.MoveRight(board);
+                    block.MoveRight();
                     break;
                 case Keys.S:
-                    block.MoveDown(board);
+                    block.MoveDown();
                     break;
                 case Keys.W:
-                    block.rotateAntiClockwise(board);
+                    block.rotateAntiClockwise();
               
                     break;
             }
@@ -49,18 +47,19 @@ namespace c_sharp_Tetris
         {
             try
             {
-                block.Move(board);
+                block.Move();
                 updateField();
             }
             catch(Exception)
             {
                 this.Close();
             }
+            
         }
 
         public void updateField()
         {
-            board.fillField(pictureBox1);
+            board.fillField(FieldPictureBox);
         }
 
     }
