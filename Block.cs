@@ -263,7 +263,6 @@ namespace c_sharp_Tetris
                 }
             return true;
         }
-
         public void fixate()
         {
             for (var col = 1; col < board.Width; col++)

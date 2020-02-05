@@ -49,7 +49,7 @@
             // TickTack
             // 
             this.TickTack.Enabled = true;
-            this.TickTack.Interval = 200;
+            this.TickTack.Interval = 150;
             this.TickTack.Tick += new System.EventHandler(this.TickTack_Tick);
             // 
             // panel1
@@ -69,7 +69,12 @@
             this.ClientSize = new System.Drawing.Size(279, 560);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(295, 599);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(295, 599);
             this.Name = "TetrisMainForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tetris";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);

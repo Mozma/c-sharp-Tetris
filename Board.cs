@@ -7,6 +7,7 @@ namespace c_sharp_Tetris
 {
     class Board
     {
+        #region Variables
         public int Width { get; set; }
         public int Height { get; set; }
         private int PixelSize { get; set; }
@@ -26,8 +27,6 @@ namespace c_sharp_Tetris
             
         }
 
-        
-
         Bitmap bitField;
         Graphics gr;
         Pen pen;
@@ -46,10 +45,10 @@ namespace c_sharp_Tetris
             br3 = new SolidBrush(Color.FromArgb(0,204,51));   // fixed block
             gr.Clear(Color.Black);
         }
-        
-        
-        
 
+        #endregion
+
+        #region Basic Functions
         /// <summary>
         /// Creates an array of zeros with 1 of the edges.
         /// </summary>
@@ -145,7 +144,9 @@ namespace c_sharp_Tetris
                 }
             }
         }
-              
+        #endregion
+
+        #region check area      
         public void checkRows()
         {
             bool flag;
@@ -181,6 +182,8 @@ namespace c_sharp_Tetris
             }
             return true;
         }
+        
+        #endregion
     }
-    
+
 }
